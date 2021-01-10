@@ -117,8 +117,6 @@ router.put('/:id',
             return res.sendStatus(500);
         }
 
-        console.log(result);
-
         if (result.changes === 0) {
             try {
                 const newUser = (await axios.post(`http://localhost:${config.port}/gender/`, {
