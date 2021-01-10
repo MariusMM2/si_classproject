@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  nemid-api:
+    build:
+      context: "./nemid-api"
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - CONTAINERIZED=true
+    volumes:
+    - ./db:/db
+    command: "npm start"
