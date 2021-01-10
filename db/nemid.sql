@@ -1,4 +1,10 @@
+-- SQLite
+PRAGMA FOREIGN_KEYS = ON;
+
+DROP TABLE IF EXISTS Password;
 DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Gender;
+
 CREATE TABLE User
 (
     Id         INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -11,14 +17,12 @@ CREATE TABLE User
     FOREIGN KEY (GenderId) REFERENCES Gender (Id)
 );
 
-DROP TABLE IF EXISTS Gender;
 CREATE TABLE Gender
 (
     Id    INTEGER PRIMARY KEY AUTOINCREMENT,
     Label TEXT NOT NULL UNIQUE
 );
 
-DROP TABLE IF EXISTS Password;
 CREATE TABLE Password
 (
     Id           INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,6 +38,6 @@ VALUES ('male'),
        ('female'),
        ('other');
 INSERT INTO User(NemId, Cpr, GenderId, Email)
-VALUES ('hello', 'world', 0, 'hello@email.com');
+VALUES ('hello', 'world', 1, 'hello@email.com');
 INSERT INTO Password(UserId, PasswordHash, IsValid)
 VALUES (1, '$2b$10$I1iT0m/8kZI2N6SdY8nJK.ORMBQ9flD882m1SAkUU0EthNr5GV1mG', TRUE);
