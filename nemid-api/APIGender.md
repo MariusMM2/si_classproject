@@ -98,14 +98,18 @@
 ### Body
 - **label** - Label of the gender
 
-### Response
+### Response Status
+- **201** - Created new Gender
+- **204** - Modified existing Gender
+
+### Response Body
 - empty
 
 ### Errors
-- **404** - Gender not found
+- **409** - Gender with the same label already exists
 
 ### Example Request
-`Update /gender/10`
+`UPDATE /gender/10`
 
 ```javascript
 {
