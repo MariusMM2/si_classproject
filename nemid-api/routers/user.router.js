@@ -1,7 +1,6 @@
 const sqlite3 = require("sqlite3");
 const axios = require('axios');
 const {parseString, parseInteger, inputValidator} = require("../middleware/inputParsing");
-const {toSqlDatetime} = require("../utils/sql.util");
 const config = require("../server.config");
 const router = require('express').Router();
 
@@ -117,13 +116,13 @@ router.put('/:id',
                            Cpr        = ?,
                            GenderId   = ?,
                            Email      = ?,
-                           ModifiedAt = ?
+                           ModifiedAt = CURRENT_TIMESTAMP
                        WHERE Id = ?`;
 
         let result;
         try {
             result = await new Promise((resolve, reject) => {
-                db.run(query, [req.body.nemId, req.body.cpr, req.body.genderId, req.body.email, toSqlDatetime(new Date()), req.params.id], function (err) {
+                db.run(query, [req.body.nemId, req.body.cpr, req.body.genderId, req.body.email, req.params.id], function (err) {
                     if (err) {
                         reject(err);
                     } else {
