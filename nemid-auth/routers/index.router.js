@@ -51,4 +51,33 @@ router.post('/login',
         return res.sendStatus(204);
     });
 
+router.post('/change-password',
+    // 'nemId' body attribute
+    parseString('nemId', {min: 1, max: 20}),
+    // 'oldPassword' body attribute
+    parseString('oldPassword', {min: 1, max: 50}),
+    // 'newPassword' body attribute
+    parseString('newPassword', {min: 1, max: 50}),
+    // validate above attribute
+    inputValidator,
+    async (req, res) => {
+        try {
+            await axios.post(`${config.nemidApiString}/change-password`, req.body);
+        } catch (e) {
+            if (e.response) {
+                if (e.response.status === 403) {
+                    return res.status(403).json(e.response.data);
+                }
+
+                console.log(e.response);
+                return res.sendStatus(500);
+            }
+
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        return res.sendStatus(200);
+    });
+
 module.exports = router;
