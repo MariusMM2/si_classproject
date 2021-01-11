@@ -6,7 +6,7 @@ const express = require("express");
 const logger = require("morgan");
 const userRouter = require("./routers/user.router");
 const genderRouter = require("./routers/gender.router");
-const passwordRouter = require("./routers/password.router");
+const authRouter = require("./routers/auth.router");
 const config = require("./server.config");
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use("/user", userRouter);
 app.use("/gender", genderRouter);
-app.use("/password", passwordRouter);
+app.use("/", authRouter);
 
 app.listen(config.port, () => {
     console.log(`listening on port ${(config.port)}`);

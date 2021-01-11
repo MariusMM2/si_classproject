@@ -1,7 +1,6 @@
 const sqlite3 = require("sqlite3");
 const axios = require('axios');
-const {parseInteger} = require("../middleware/inputParsing");
-const {parseString, inputValidator} = require("../middleware/inputParsing");
+const {parseString, parseInteger, inputValidator} = require("../middleware/inputParsing");
 const config = require("../server.config");
 const router = require('express').Router();
 
