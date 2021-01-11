@@ -149,4 +149,76 @@ router.post('/change-password',
         return res.sendStatus(201);
     });
 
+router.post('/reset-password',
+    // 'cpr' body attribute
+    parseString('cpr', {min: 1, max: 20}),
+    // 'password' body attribute
+    parseString('password', {min: 1, max: 50}),
+    // validate above attribute
+    inputValidator,
+    async (req, res) => {
+        const userQuery = `SELECT *
+                           FROM User
+                           WHERE User.Cpr = ?`;
+
+        let userRow;
+        try {
+            userRow = await new Promise((resolve, reject) => {
+                db.get(userQuery, [req.body.cpr], (err, dbRow) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(dbRow);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        if (!userRow) {
+            return res.status(404).json("invalid CPR");
+        }
+
+        const disablePasswordsQuery = `UPDATE Password
+                                       SET IsValid= FALSE
+                                       WHERE UserId = ?`;
+
+        try {
+            await new Promise((resolve, reject) => {
+                db.run(disablePasswordsQuery, [userRow.Id], function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(this);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        const insertPasswordQuery = `INSERT INTO Password(UserId, PasswordHash)
+                                     VALUES (?, ?)`;
+
+        try {
+            await new Promise((resolve, reject) => {
+                db.run(insertPasswordQuery, [(userRow.Id), (getHashedPassword(req.body.password))], function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(this);
+                    }
+                })
+            });
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        return res.sendStatus(201);
+    });
+
 module.exports = router;

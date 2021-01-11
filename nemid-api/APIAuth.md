@@ -1,4 +1,6 @@
 ## Authenticate
+Authenticaes a user using a combination of
+NemID and password credentials.
 
 `POST /authenticate`
 
@@ -44,6 +46,8 @@
 ```
 
 ## Change Password
+Adds a new password for a given NemId and disabled the 
+old one (which is also provided).
 
 `POST /change-password`
 
@@ -69,6 +73,38 @@
     nemId: "testNemId",
     oldPassword: "password",
     newPassword: "password2",
+}
+```
+
+### Example Response
+`201 Created`
+
+## Reset Password
+Disables all passwords for a user and
+creates a new one.
+
+`POST /reset-password`
+
+### Body
+- **cpr**
+- **password**
+
+### Response Status
+- 201 - Created
+
+### Response Body
+- empty
+
+### Errors
+- 404 - Invalid CPR number
+
+### Example Request
+`POST /reset-password`
+
+```javascript
+{
+    cpr: "test1234",
+    password: "password3",
 }
 ```
 
