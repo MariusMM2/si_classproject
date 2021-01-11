@@ -35,3 +35,15 @@ services:
       - JWT_SECRET_TYPE=${JWT_SECRET_TYPE}
     volumes:
       - ./db:/db
+
+  nemid-gateway:
+    build:
+      context: "./nemid-gateway"
+    ports:
+      - "3010:3010"
+    environment:
+      - PORT=3010
+      - CONTAINERIZED=true
+      - NEMID_API_STRING=http://nemid-api:3000
+      - NEMID_AUTH_STRING=http://nemid-auth:3001
+      - NEMID_TOKENGEN_STRING=http://nemid-tokengen:3002

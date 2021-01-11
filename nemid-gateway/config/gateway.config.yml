@@ -1,0 +1,71 @@
+http:
+  port: ${PORT}
+apiEndpoints:
+  api:
+    host: localhost
+    paths:
+      - '/user'
+      - '/user/*'
+      - '/gender'
+      - '/gender/*'
+  auth:
+    host: localhost
+    paths:
+      - '/authenticate'
+      - '/change-password'
+      - '/reset-password'
+  tokengen:
+    host: localhost
+    paths:
+      - '/generate-token'
+      - '/update-states'
+serviceEndpoints:
+  apiService:
+    url: ${NEMID_API_STRING}
+  authService:
+    url: ${NEMID_AUTH_STRING}
+  tokengenService:
+    url: ${NEMID_TOKENGEN_STRING}
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  apiPipeline:
+    apiEndpoints:
+      - api
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl} ${res.statusCode}
+      - proxy:
+          action:
+            serviceEndpoint: apiService
+            changeOrigin: true
+  authPipeline:
+    apiEndpoints:
+      - auth
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl} ${res.statusCode}
+      - proxy:
+          action:
+            serviceEndpoint: authService
+            changeOrigin: true
+  tokengenPipeline:
+    apiEndpoints:
+      - tokengen
+    policies:
+      - log:
+          - action:
+              message: ${req.method} ${req.originalUrl} ${res.statusCode}
+      - proxy:
+          action:
+            serviceEndpoint: tokengenService
+            changeOrigin: true

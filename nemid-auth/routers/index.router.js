@@ -7,7 +7,7 @@ const router = require('express').Router();
 const db = new sqlite3.Database(config.dbLocation);
 db.get("PRAGMA foreign_keys = ON");
 
-router.post('/login',
+router.post('/authenticate',
     // 'nemId' body attribute
     parseString('nemId', {min: 1, max: 20}),
     // 'password' body attribute
