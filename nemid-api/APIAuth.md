@@ -1,5 +1,5 @@
 ## Authenticate
-Authenticaes a user using a combination of
+Authenticates a user using a combination of
 NemID and password credentials.
 
 `POST /authenticate`
@@ -46,7 +46,7 @@ NemID and password credentials.
 ```
 
 ## Change Password
-Adds a new password for a given NemId and disabled the 
+Adds a new password for a given NemId and disables the 
 old one (which is also provided).
 
 `POST /change-password`
