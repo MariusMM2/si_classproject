@@ -18,7 +18,10 @@ router.post('/authenticate',
     async (req, res) => {
         const userPasswordQuery = `SELECT *
                                    FROM main.User
-                                            INNER JOIN Password ON User.Id = Password.UserId AND User.NemId = ?`;
+                                            INNER JOIN Password ON
+                                           User.Id = Password.UserId AND
+                                           User.NemId = ? AND
+                                           Password.IsValid = TRUE`;
 
         let passwordRows;
         try {
@@ -73,7 +76,7 @@ router.post('/change-password',
         } catch (e) {
             if (e.response) {
                 if (e.response.status === 403) {
-                    return res.status(403).json(e.response.body);
+                    return res.status(403).json(e.response.data);
                 }
             }
 
@@ -83,7 +86,8 @@ router.post('/change-password',
 
         const userPasswordsQuery = `SELECT *
                                     FROM Password
-                                    WHERE UserId = ?`;
+                                    WHERE UserId = ? AND
+                                    IsValid = TRUE`;
 
         let userPasswordRows;
         try {
