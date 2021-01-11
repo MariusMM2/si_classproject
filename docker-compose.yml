@@ -22,3 +22,16 @@ services:
       - API_STRING=http://nemid-api:3000
     volumes:
       - ./db:/db
+
+  nemid-tokengen:
+    build:
+      context: "./nemid-tokengen"
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - CONTAINERIZED=true
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_SECRET_TYPE=${JWT_SECRET_TYPE}
+    volumes:
+      - ./db:/db
