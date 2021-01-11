@@ -24,7 +24,12 @@ function confirmPassword(password, hash) {
     return bcrypt.compareSync(password, hash);
 }
 
+function toSqlDatetime(date) {
+    return date.toISOString().slice(0, 19).replace('T', ' ');
+}
+
 module.exports = {
     getHashedPassword,
     confirmPassword,
+    toSqlDatetime,
 };

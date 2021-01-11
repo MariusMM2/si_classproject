@@ -1,6 +1,7 @@
 const sqlite3 = require("sqlite3");
 const axios = require('axios');
 const {parseString, parseInteger, inputValidator} = require("../middleware/inputParsing");
+const {toSqlDatetime} = require("../utils/hash.util");
 const config = require("../server.config");
 const router = require('express').Router();
 
@@ -39,7 +40,7 @@ router.post('/',
                 if (e.message.includes("FOREIGN KEY")) {
                     return res.status(422).json("invalid genderId");
                 } else if (e.message.includes("UNIQUE")) {
-                    return res.status(409).json("user already exists");
+                    return res.status(409).json("cpr already exists in the database");
                 }
             }
 
@@ -112,16 +113,17 @@ router.put('/:id',
     inputValidator,
     async (req, res) => {
         const query = `UPDATE main.User
-                       SET NemId    = ?,
-                           Cpr      = ?,
-                           GenderId = ?,
-                           Email    = ?
+                       SET NemId      = ?,
+                           Cpr        = ?,
+                           GenderId   = ?,
+                           Email      = ?,
+                           ModifiedAt = ?
                        WHERE Id = ?`;
 
         let result;
         try {
             result = await new Promise((resolve, reject) => {
-                db.run(query, [req.body.nemId, req.body.cpr, req.body.genderId, req.body.email, req.params.id], function (err) {
+                db.run(query, [req.body.nemId, req.body.cpr, req.body.genderId, req.body.email, toSqlDatetime(new Date()), req.params.id], function (err) {
                     if (err) {
                         reject(err);
                     } else {
@@ -134,7 +136,7 @@ router.put('/:id',
                 if (e.message.includes("FOREIGN KEY")) {
                     return res.status(422).json("invalid genderId");
                 } else if (e.message.includes("UNIQUE")) {
-                    return res.status(409).json("user already exists");
+                    return res.status(409).json("cpr already exists in the database");
                 }
             }
 
@@ -144,15 +146,21 @@ router.put('/:id',
 
         if (result.changes === 0) {
             try {
-                const newUser = (await axios.post(`https://localhost:${config.port}/user/`, {
-                    nemId: req.params.nemId,
-                    cpr: req.params.cpr,
-                    genderId: req.params.genderId,
-                    email: req.params.email,
+                const newUser = (await axios.post(`http://localhost:${config.port}/user/`, {
+                    nemId: req.body.nemId,
+                    cpr: req.body.cpr,
+                    genderId: req.body.genderId,
+                    email: req.body.email,
                 })).data;
 
                 return res.status(201).json(newUser);
             } catch (e) {
+                if (e.response) {
+                    if (e.response.status === 409) {
+                        return res.status(409).json(e.response.data);
+                    }
+                }
+
                 console.log(e);
                 return res.sendStatus(500);
             }
