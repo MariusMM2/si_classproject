@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="nemid-api" uuid="dd31d9ac-5928-41f2-85cb-028131fdf366">
+    <data-source source="LOCAL" name="nemid-passwords" uuid="dd31d9ac-5928-41f2-85cb-028131fdf366">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/nemid-api.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/passwordDb.sqlite</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="nemid-auth" uuid="ccb9a3c3-3f74-4500-abe2-580d1d5650b5">
+    <data-source source="LOCAL" name="nemid-tokens" uuid="ccb9a3c3-3f74-4500-abe2-580d1d5650b5">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/nemid-auth.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/tokenDb.sqlite</jdbc-url>
     </data-source>
   </component>
 </project>
