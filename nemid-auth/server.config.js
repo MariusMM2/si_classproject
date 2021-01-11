@@ -1,7 +1,7 @@
 const config = {}
 
 config.port = process.env.PORT || 3001;
-config.dbName = "passwordDb.sqlite";
+config.dbName = "tokenDb.sqlite";
 config.dbLocation = `../db/${config.dbName}`;
 config.nemidApiString = process.env.API_STRING || "http://localhost:3000";
 
