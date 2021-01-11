@@ -131,6 +131,12 @@ router.put('/:id',
 
                 return res.status(201).json(newGender);
             } catch (e) {
+                if (e.response) {
+                    if (e.response.status === 409) {
+                        return res.status(409).json(e.response.data);
+                    }
+                }
+
                 console.log(e);
                 return res.sendStatus(500);
             }
