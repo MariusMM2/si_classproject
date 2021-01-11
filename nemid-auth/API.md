@@ -64,3 +64,35 @@ old one (which is also provided).
 ### Example Response
 `200 OK`
 
+## Reset Password
+Disables all passwords for a user and
+creates a new one.
+
+`POST /reset-password`
+
+### Body
+- **cpr**
+- **password**
+
+### Response Status
+- 200 - OK
+
+### Response Body
+- empty
+
+### Errors
+- 404 - Invalid CPR number
+
+### Example Request
+`POST /reset-password`
+
+```javascript
+{
+    cpr: "test1234",
+    password: "password3",
+}
+```
+
+### Example Response
+`200 OK`
+

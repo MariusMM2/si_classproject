@@ -60,9 +60,23 @@ router.post('/change-password',
     parseString('newPassword', {min: 1, max: 50}),
     // validate above attribute
     inputValidator,
-    async (req, res) => {
+    apiWrapperMw("change-password"));
+
+router.post('/reset-password',
+    // 'cpr' body attribute
+    parseString('cpr', {min: 1, max: 20}),
+    // 'password' body attribute
+    parseString('password', {min: 1, max: 50}),
+    // validate above attribute
+    inputValidator,
+    apiWrapperMw("reset-password"));
+
+module.exports = router;
+
+function apiWrapperMw(endpoint) {
+    return async (req, res) => {
         try {
-            await axios.post(`${config.nemidApiString}/change-password`, req.body);
+            await axios.post(`${config.nemidApiString}/${endpoint}`, req.body);
         } catch (e) {
             if (e.response) {
                 if (e.response.status === 403) {
@@ -78,6 +92,5 @@ router.post('/change-password',
         }
 
         return res.sendStatus(200);
-    });
-
-module.exports = router;
+    }
+}
