@@ -90,4 +90,29 @@ router.post('/generate-token',
         return res.sendStatus(200);
     });
 
+router.get('/update-states',
+    async (req, res) => {
+        const stateUpdateQuery = `UPDATE main.AuthAttempt
+                                  SET StateId = ?
+                                  WHERE CreatedAt < DATETIME(CURRENT_TIMESTAMP, '-5 minutes')
+                                    AND Id NOT IN (SELECT DISTINCT AuthAttemptId
+                                                   FROM main.Token)`;
+        try {
+            await new Promise((resolve, reject) => {
+                db.run(stateUpdateQuery, [config.dbState.failed], function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(this);
+                    }
+                })
+            });
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        return res.sendStatus(204);
+    });
+
 module.exports = router;
