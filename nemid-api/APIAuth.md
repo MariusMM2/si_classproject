@@ -42,3 +42,35 @@
     "Email": "test@email.com",
 }
 ```
+
+## Change Password
+
+`POST /change-password`
+
+### Body
+- **nemId**
+- **oldPassword**
+- **newPassword**
+
+### Response Status
+- 201 - Created
+
+### Response Body
+- empty
+
+### Errors
+- **403** - Invalid NemID or Old Password
+
+### Example Request
+`POST /change-password`
+
+```javascript
+{
+    nemId: "testNemId",
+    oldPassword: "password",
+    newPassword: "password2",
+}
+```
+
+### Example Response
+`201 Created`

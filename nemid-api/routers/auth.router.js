@@ -1,7 +1,7 @@
 const sqlite3 = require("sqlite3");
 const axios = require('axios');
 const {parseString, inputValidator} = require("../middleware/inputParsing");
-const {confirmPassword} = require("../utils/hash.util");
+const {getHashedPassword, confirmPassword} = require("../utils/hash.util");
 const config = require("../server.config");
 const router = require('express').Router();
 
@@ -52,6 +52,97 @@ router.post('/authenticate',
             console.log(e);
             return res.sendStatus(500);
         }
+    });
+
+router.post('/change-password',
+    // 'nemId' body attribute
+    parseString('nemId', {min: 1, max: 20}),
+    // 'oldPassword' body attribute
+    parseString('oldPassword', {min: 1, max: 50}),
+    // 'newPassword' body attribute
+    parseString('newPassword', {min: 1, max: 50}),
+    // validate above attribute
+    inputValidator,
+    async (req, res) => {
+        let user;
+        try {
+            user = (await axios.post(`http://localhost:${config.port}/authenticate`, {
+                nemId: req.body.nemId,
+                password: req.body.oldPassword,
+            })).data;
+        } catch (e) {
+            if (e.response) {
+                if (e.response.status === 403) {
+                    return res.status(403).json(e.response.body);
+                }
+            }
+
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        const userPasswordsQuery = `SELECT *
+                                    FROM Password
+                                    WHERE UserId = ?`;
+
+        let userPasswordRows;
+        try {
+            userPasswordRows = await new Promise((resolve, reject) => {
+                db.all(userPasswordsQuery, [user.Id], (err, dbRows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(dbRows);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        const matchingOldPasswordRow = userPasswordRows.find(userPasswordRow => {
+            return confirmPassword(req.body.oldPassword, userPasswordRow.PasswordHash);
+        });
+
+        const disablePasswordQuery = `UPDATE Password
+                                      SET IsValid = FALSE
+                                      WHERE Id = ?`;
+
+        try {
+            await new Promise((resolve, reject) => {
+                db.run(disablePasswordQuery, [matchingOldPasswordRow.Id], function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(this);
+                    }
+                });
+            });
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        const newPasswordQuery = `INSERT INTO Password(UserId, PasswordHash)
+                                  VALUES (?, ?)`;
+
+        try {
+            await new Promise((resolve, reject) => {
+                db.run(newPasswordQuery, [user.Id, getHashedPassword(req.body.newPassword)], (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(true);
+                    }
+                })
+            })
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        return res.sendStatus(201);
     });
 
 module.exports = router;
