@@ -21,15 +21,13 @@ router.post('/',
     //validate above attribute
     inputValidator,
     async (req, res) => {
-        const {nemId, cpr, genderId, email} = req.body;
-
         const query = `INSERT INTO main.User(NemId, Cpr, GenderId, Email)
                        VALUES (?, ?, ?, ?)`;
 
         let result;
         try {
             result = await new Promise((resolve, reject) => {
-                db.run(query, [nemId, cpr, genderId, email], function (err) {
+                db.run(query, [req.body.nemId, req.body.cpr, req.body.genderId, req.body.email], function (err) {
                     if (err) {
                         reject(err);
                     } else {
@@ -124,7 +122,7 @@ router.put('/:id',
         let result;
         try {
             result = await new Promise((resolve, reject) => {
-                db.run(query, [req.params.nemId, req.params.cpr, req.params.genderId, req.params.email, req.params.id], function (err) {
+                db.run(query, [req.body.nemId, req.body.cpr, req.body.genderId, req.body.email, req.params.id], function (err) {
                     if (err) {
                         reject(err);
                     } else {
@@ -140,6 +138,9 @@ router.put('/:id',
                     return res.status(409).json("user already exists");
                 }
             }
+
+            console.log(e);
+            return res.sendStatus(500);
         }
 
         if (result.changes === 0) {
