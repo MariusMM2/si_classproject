@@ -114,16 +114,22 @@ router.put('/:id',
                 })
             })
         } catch (e) {
+            if (e.code === "SQLITE_CONSTRAINT") { // SQL constraint failed
+                if (e.message.includes("UNIQUE")) {
+                    return res.status(409).json("label already exists");
+                }
+            }
+
             return res.sendStatus(500);
         }
 
         if (result.changes === 0) {
             try {
-                const newUser = (await axios.post(`http://localhost:${config.port}/gender/`, {
+                const newGender = (await axios.post(`http://localhost:${config.port}/gender/`, {
                     label: req.body.label
                 })).data;
 
-                return res.status(201).json(newUser);
+                return res.status(201).json(newGender);
             } catch (e) {
                 console.log(e);
                 return res.sendStatus(500);
