@@ -9,5 +9,18 @@ services:
       - PORT=3000
       - CONTAINERIZED=true
     volumes:
-    - ./db:/db
+      - ./db:/db
+    command: "npm start"
+
+  nemid-auth:
+    build:
+      context: "./nemid-auth"
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - CONTAINERIZED=true
+      - API_STRING=http://nemid-api:3000
+    volumes:
+      - ./db:/db
     command: "npm start"

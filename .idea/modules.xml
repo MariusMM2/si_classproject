@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/classproject.iml" filepath="$PROJECT_DIR$/classproject.iml" />
       <module fileurl="file://$PROJECT_DIR$/nemid-api/nemid-api.iml" filepath="$PROJECT_DIR$/nemid-api/nemid-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nemid-auth/nemid-auth.iml" filepath="$PROJECT_DIR$/nemid-auth/nemid-auth.iml" />
     </modules>
   </component>
 </project>

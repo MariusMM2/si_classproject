@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/nemid-api.sqlite</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="nemid-auth" uuid="ccb9a3c3-3f74-4500-abe2-580d1d5650b5">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/nemid-auth.sqlite</jdbc-url>
+    </data-source>
   </component>
 </project>
