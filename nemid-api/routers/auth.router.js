@@ -28,7 +28,7 @@ router.post('/authenticate',
             passwordRows = await new Promise((resolve, reject) => {
                 db.all(userPasswordQuery, [req.body.nemId], function (err, dbRows) {
                     if (err) {
-                        reject(new Error(err));
+                        reject(err);
                     } else {
                         resolve(dbRows);
                     }
