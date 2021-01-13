@@ -99,3 +99,22 @@ creates a new one.
 ### Example Response
 `200 OK`
 
+## Delete User
+
+`DELETE /delete-user`
+
+### Query Parameters
+- **nemId** - Identifier for the user
+
+### Response
+- empty
+
+### Errors
+- **400** - One or more query or body attributes are missing or malformed
+- **404** - NemId user not found
+
+### Example Request
+`DELETE /delete-user?nemId=123456789`
+
+### Example Response
+`204 No Content`

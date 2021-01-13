@@ -53,7 +53,7 @@
 
 `GET /user/:id`
 
-### Parameters
+### URL Parameters
 - **id** - Identifier for the user
 
 ### Response
@@ -131,7 +131,7 @@
 
 `PUT /user/:id`
 
-### Parameters
+### URL Parameters
 - **id** - Identifier for the user
 
 ### Body
@@ -171,7 +171,7 @@
 
 `DELETE /user/:id`
 
-### Parameters
+### URL Parameters
 - **id** - Identifier for the user
 
 ### Response

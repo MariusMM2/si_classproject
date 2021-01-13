@@ -5,6 +5,7 @@
 const express = require("express");
 const logger = require("morgan");
 const indexRouter = require('./routers/index.router');
+const userRouter = require('./routers/user.router');
 const config = require("./server.config");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use("/", indexRouter);
+app.use("/user", userRouter);
 
 app.listen(config.port, () => {
     console.log(`listening on port ${(config.port)}`);

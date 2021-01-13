@@ -30,7 +30,7 @@ CREATE TABLE Password
     PasswordHash TEXT    NOT NULL,
     CreatedAt    DATE    DEFAULT CURRENT_TIMESTAMP,
     IsValid      INTEGER DEFAULT TRUE,
-    FOREIGN KEY (UserId) REFERENCES User (Id)
+    FOREIGN KEY (UserId) REFERENCES User (Id) ON DELETE CASCADE
 );
 
 INSERT INTO Gender(Label)

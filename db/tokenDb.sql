@@ -27,7 +27,7 @@ CREATE TABLE Token
     AuthAttemptId INTEGER NOT NULL,
     Token         TEXT    NOT NULL,
     CreatedAt     DATE DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (AuthAttemptId) REFERENCES AuthAttempt (Id)
+    FOREIGN KEY (AuthAttemptId) REFERENCES AuthAttempt (Id) ON DELETE CASCADE
 );
 
 INSERT INTO State(Label)

@@ -36,7 +36,7 @@
 
 `GET /gender/:id`
 
-### Parameters
+### URL Parameters
 - **id** - Identifier for the gender
 
 ### Response
@@ -94,7 +94,7 @@
 
 `PUT /gender/:id`
 
-### Parameters
+### URL Parameters
 - **id** - Identifier for the gender
 
 ### Body
@@ -127,7 +127,7 @@
 
 `DELETE /gender/:id`
 
-### Parameters
+### URL Parameters
 - **id** - Identifier for the gender
 
 ### Response

@@ -72,6 +72,41 @@ router.post('/reset-password',
     inputValidator,
     apiWrapperMw("reset-password"));
 
+router.delete('/delete-user',
+    // 'nemId' query param
+    parseString('nemId', {min: 9, max: 9}),
+    // validate above attribute
+    inputValidator,
+    async (req, res) => {
+        const deleteAuthAttemptsQuery = `DELETE
+                                         FROM main.AuthAttempt
+                                         WHERE NemId = ?`;
+
+        let deleteAuthAttemptsResult;
+        try {
+            deleteAuthAttemptsResult = await new Promise((resolve, reject) => {
+                db.run(deleteAuthAttemptsQuery, req.query.nemId, function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(this);
+                    }
+                })
+            })
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(500);
+        }
+
+        console.log(deleteAuthAttemptsResult);
+
+        if (deleteAuthAttemptsResult.changes !== 0) {
+            return res.sendStatus(204);
+        }
+
+        return res.status(404).json("nemId user not found");
+    });
+
 module.exports = router;
 
 function apiWrapperMw(endpoint) {

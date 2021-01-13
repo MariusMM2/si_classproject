@@ -24,7 +24,7 @@ CREATE TABLE OperationLog
     CreatedAt  DATE    DEFAULT CURRENT_TIMESTAMP,
     Operation  TEXT    NOT NULL,
     Successful BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (UserId) REFERENCES User (Id)
+    FOREIGN KEY (UserId) REFERENCES User (Id) ON DELETE CASCADE
 );
 
 INSERT INTO User(FirstName, LastName, DateOfBirth, Cpr, Email, NemId)

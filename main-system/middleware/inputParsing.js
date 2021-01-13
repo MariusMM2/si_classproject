@@ -111,10 +111,7 @@ function parseDate(field, optional = false) {
             } else {
                 return true;
             }
-        }).bail()
-        // .isDate().withMessage("must be a valid date").bail()
-        // Sanitization
-        .toDate()
+        })
 }
 
 /**
