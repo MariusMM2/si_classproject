@@ -38,7 +38,7 @@ VALUES ('male'),
        ('female'),
        ('other');
 INSERT INTO User(NemId, Cpr, GenderId, Email)
-VALUES ('hello', 'world', 1, 'hello@email.com');
+VALUES ('123123456', '0501001234', 1, 'hworld@email.com');
 INSERT INTO Password(UserId, PasswordHash, IsValid)
 -- password: "password"
 VALUES (1, '$2b$10$I1iT0m/8kZI2N6SdY8nJK.ORMBQ9flD882m1SAkUU0EthNr5GV1mG', TRUE);

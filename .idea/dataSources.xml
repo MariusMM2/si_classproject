@@ -13,5 +13,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/tokenDb.sqlite</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="nemid-users" uuid="f82f5514-0912-4128-b028-33191fcb672c">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/userDb.sqlite</jdbc-url>
+    </data-source>
   </component>
 </project>

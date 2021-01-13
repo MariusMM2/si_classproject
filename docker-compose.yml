@@ -47,3 +47,16 @@ services:
       - NEMID_API_STRING=http://nemid-api:$PORT_NEMID_API
       - NEMID_AUTH_STRING=http://nemid-auth:$PORT_NEMID_AUTH
       - NEMID_TOKENGEN_STRING=http://nemid-tokengen:$PORT_NEMID_TOKENGEN
+
+  main-system:
+    build:
+      context: "./main-system"
+    ports:
+      - "$PORT_MAIN_SYSTEM:$PORT_MAIN_SYSTEM"
+    environment:
+      - PORT=$PORT_MAIN_SYSTEM
+      - CONTAINERIZED=true
+      - AUTH_STRING=http://nemid-auth:$PORT_NEMID_AUTH
+      - API_STRING=http://nemid-api:$PORT_NEMID_API
+    volumes:
+      - ./db:/db
