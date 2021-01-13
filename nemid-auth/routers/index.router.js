@@ -28,7 +28,8 @@ router.post('/authenticate',
             return res.sendStatus(500);
         }
 
-        let generatedCode = Array.from({length: 6}, () => Math.floor(Math.random() * 10)).join('');
+        // (000001, 999999)
+        const generatedCode = Array.from({length: 6}, () => Math.floor(Math.random() * 10)).join('');
 
         const authAttemptQuery = `INSERT INTO main.AuthAttempt (StateId, NemId, GeneratedCode)
                                   VALUES (?, ?, ?)`;

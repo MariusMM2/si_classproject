@@ -86,8 +86,8 @@ router.post('/change-password',
 
         const userPasswordsQuery = `SELECT *
                                     FROM Password
-                                    WHERE UserId = ? AND
-                                    IsValid = TRUE`;
+                                    WHERE UserId = ?
+                                      AND IsValid = TRUE`;
 
         let userPasswordRows;
         try {
@@ -182,7 +182,7 @@ router.post('/reset-password',
         }
 
         const disablePasswordsQuery = `UPDATE Password
-                                       SET IsValid= FALSE
+                                       SET IsValid = FALSE
                                        WHERE UserId = ?`;
 
         try {
