@@ -18,6 +18,7 @@ NemID and password credentials.
 - **Email** 
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **403** - Invalid NemID or Password
 
 ### Example Request
@@ -63,6 +64,7 @@ old one (which is also provided).
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **403** - Invalid NemID or Old Password
 
 ### Example Request
@@ -96,7 +98,8 @@ creates a new one.
 - empty
 
 ### Errors
-- 404 - Invalid CPR number
+- **400** - One or more query or body attributes are missing or malformed
+- **404** - Invalid CPR number
 
 ### Example Request
 `POST /reset-password`

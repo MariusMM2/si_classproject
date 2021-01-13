@@ -10,6 +10,7 @@
 - **Label**
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **409** - Gender with the same label already exists
 
 ### Example Request
@@ -43,6 +44,7 @@
 - **Label**
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **404** - Gender not found
 
 ### Example Request
@@ -106,6 +108,7 @@
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **409** - Gender with the same label already exists
 
 ### Example Request
@@ -131,6 +134,7 @@
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **404** - Gender not found
 
 ### Example Request

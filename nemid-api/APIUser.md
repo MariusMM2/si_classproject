@@ -18,6 +18,7 @@
 - **Email** 
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **409** - User with the same [attributes?] already exists
 - **422** - Provided genderId is invalid
 
@@ -65,6 +66,7 @@
 - **Email** 
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **404** - User not found
 
 ### Example Request
@@ -146,6 +148,7 @@
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **409** - User with the same [unique?] attributes already exists
 - **422** - Provided genderId is invalid
 
@@ -175,6 +178,7 @@
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **404** - User not found
 
 ### Example Request

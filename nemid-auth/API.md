@@ -2,23 +2,24 @@
 Authenticates a user using a combination of
 NemID and password credentials.
 
-`POST /login`
+`POST /authenticate`
 
 ### Body
 - **nemId**
 - **password**
 
 ### Response Status
-- 201 - Created
+- 204 - No Content
 
 ### Response Body
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **403** - Invalid NemID or Password
 
 ### Example Request
-`POST /login`
+`POST /authenticate`
 
 ```javascript
 {
@@ -28,7 +29,7 @@ NemID and password credentials.
 ```
 
 ### Example Response
-`201 Created`
+`204 No Content`
 
 ## Change Password
 Adds a new password for a given NemId and disables the 
@@ -48,6 +49,7 @@ old one (which is also provided).
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **403** - Invalid NemID or Old Password
 
 ### Example Request
@@ -81,7 +83,8 @@ creates a new one.
 - empty
 
 ### Errors
-- 404 - Invalid CPR number
+- **400** - One or more query or body attributes are missing or malformed
+- **404** - Invalid CPR number
 
 ### Example Request
 `POST /reset-password`

@@ -15,6 +15,7 @@ credentials are valid.
 - empty
 
 ### Errors
+- **400** - One or more query or body attributes are missing or malformed
 - **403** - Invalid NemID or Generated Code, or the attempt is older than 5 minutes
 
 ### Example Request
