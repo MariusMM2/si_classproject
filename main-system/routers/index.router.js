@@ -18,7 +18,7 @@ router.post('/authenticate',
     async (req, res) => {
         let result;
         try {
-            result = (await axios.post(`${config.nemidAuthString}/authenticate`, req.body));
+            result = (await axios.post(`${config.nemidGatewayString}/authenticate`, req.body));
         } catch (e) {
             if (e.response) {
                 if (e.response.status === 403) {

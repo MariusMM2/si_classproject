@@ -2,20 +2,20 @@ http:
   port: ${PORT}
 apiEndpoints:
   api:
-    host: localhost
+    host: '*'
     paths:
       - '/user'
       - '/user/*'
       - '/gender'
       - '/gender/*'
   auth:
-    host: localhost
+    host: '*'
     paths:
       - '/authenticate'
       - '/change-password'
       - '/reset-password'
   tokengen:
-    host: localhost
+    host: '*'
     paths:
       - '/generate-token'
       - '/update-states'

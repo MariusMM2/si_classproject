@@ -58,5 +58,6 @@ services:
       - CONTAINERIZED=true
       - AUTH_STRING=http://nemid-auth:$PORT_NEMID_AUTH
       - API_STRING=http://nemid-api:$PORT_NEMID_API
+      - GATEWAY_STRING=http://nemid-gateway:$PORT_NEMID_GATEWAY
     volumes:
       - ./db:/db
