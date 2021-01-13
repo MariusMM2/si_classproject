@@ -52,7 +52,7 @@ router.post('/authenticate',
         return res.sendStatus(204);
     });
 
-router.post('/change-password',
+router.put('/change-password',
     // 'nemId' body attribute
     parseString('nemId', {min: 1, max: 20}),
     // 'oldPassword' body attribute
@@ -63,7 +63,7 @@ router.post('/change-password',
     inputValidator,
     apiWrapperMw("change-password"));
 
-router.post('/reset-password',
+router.put('/reset-password',
     // 'cpr' body attribute
     parseString('cpr', {min: 1, max: 20}),
     // 'password' body attribute
@@ -112,11 +112,13 @@ module.exports = router;
 function apiWrapperMw(endpoint) {
     return async (req, res) => {
         try {
-            await axios.post(`${config.nemidApiString}/${endpoint}`, req.body);
+            await axios.put(`${config.nemidApiString}/${endpoint}`, req.body);
         } catch (e) {
             if (e.response) {
                 if (e.response.status === 403) {
                     return res.status(403).json(e.response.data);
+                } else if (e.response.status === 404) {
+                    return res.status(404).json(e.response.data);
                 }
 
                 console.log(e.response);

@@ -57,7 +57,7 @@ router.post('/authenticate',
         }
     });
 
-router.post('/change-password',
+router.put('/change-password',
     // 'nemId' body attribute
     parseString('nemId', {min: 1, max: 20}),
     // 'oldPassword' body attribute
@@ -149,7 +149,7 @@ router.post('/change-password',
         return res.sendStatus(201);
     });
 
-router.post('/reset-password',
+router.put('/reset-password',
     // 'cpr' body attribute
     parseString('cpr', {min: 1, max: 20}),
     // 'password' body attribute

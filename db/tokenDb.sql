@@ -35,9 +35,9 @@ VALUES ('pending'),
        ('successful'),
        ('failed');
 INSERT INTO AuthAttempt(StateId, NemId, GeneratedCode)
-VALUES (2, 'hello', 'code here'),
-       (1, 'world', 'another code here'),
-       (3, 'foobar', 'yach');
+VALUES (2, '123123456', 'code here'),
+       (1, '123123456', 'another code here'),
+       (3, '123123456', 'yach');
 INSERT INTO Token(AuthAttemptId, Token)
 -- password: "password"
 VALUES (1, 'asdfrandomtokencantreadthis');
